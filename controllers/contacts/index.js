@@ -1,4 +1,4 @@
-const { ctrlWrapper } = require("../../middlewares");
+const { controllerWrapper } = require("../../middlewares");
 
 const getContacts = require("./getContacts");
 const getContactById = require("./getContactById");
@@ -7,9 +7,9 @@ const updateContact = require("./updateContact");
 const removeContact = require("./removeContact");
 
 module.exports = {
-  getContacts: ctrlWrapper(getContacts),
-  getContactById: ctrlWrapper(getContactById),
-  addContact: ctrlWrapper(addContact),
-  updateContact: ctrlWrapper(updateContact),
-  removeContact: ctrlWrapper(removeContact),
+  getContacts: controllerWrapper(getContacts),
+  getContactById: controllerWrapper(getContactById),
+  addContact: controllerWrapper(addContact),
+  updateContact: controllerWrapper(updateContact),
+  removeContact: controllerWrapper(removeContact),
 };
