@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-const { handleMongooseError } = require("../helpers");
+const { handleMongooseErrors } = require("../middlewares");
 
 const regexps = {
   name: /^[a-zA-Z0-9_\- ]{3,20}$/,
@@ -36,7 +36,7 @@ const contactSchema = Schema(
   { versionKey: false, timestamps: true }
 );
 
-contactSchema.post(["save", "findOneAndUpdate"], handleMongooseError);
+contactSchema.post(["save", "findOneAndUpdate"], handleMongooseErrors);
 
 const addSchema = Joi.object({
   name: Joi.string().pattern(regexps.name).required(),

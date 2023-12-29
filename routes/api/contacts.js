@@ -10,8 +10,7 @@ router.get("/", contacts.getAll);
 
 router.get("/:id", isValidId, contacts.getById);
 
-// router.post("/", validate(schemas.addSchema), contacts.add);
-router.post("/", contacts.add);
+router.post("/", validate(schemas.addSchema), contacts.add);
 
 router.put(
   "/:id",
