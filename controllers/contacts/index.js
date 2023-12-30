@@ -1,15 +1,17 @@
 const { controllerWrapper } = require("../../middlewares");
 
-const getContacts = require("./getContacts");
-const getContactById = require("./getContactById");
-const addContact = require("./addContact");
-const updateContact = require("./updateContact");
-const removeContact = require("./removeContact");
+const getAll = require("./getAll");
+const getById = require("./getById");
+const add = require("./add");
+const updateById = require("./updateById");
+const updateFavorite = require("./updateFavorite");
+const removeById = require("./removeById");
 
 module.exports = {
-  getContacts: controllerWrapper(getContacts),
-  getContactById: controllerWrapper(getContactById),
-  addContact: controllerWrapper(addContact),
-  updateContact: controllerWrapper(updateContact),
-  removeContact: controllerWrapper(removeContact),
+  getAll: controllerWrapper(getAll),
+  getById: controllerWrapper(getById),
+  add: controllerWrapper(add),
+  updateById: controllerWrapper(updateById),
+  updateFavorite: controllerWrapper(updateFavorite),
+  removeById: controllerWrapper(removeById),
 };
