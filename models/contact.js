@@ -1,8 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-//! const { handleMongooseErrors } = require("../middlewares");
-
 const Regexps = {
   NAME: /^[a-zA-Z0-9_\- ]{3,20}$/,
   EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -41,8 +39,6 @@ const contactSchema = new Schema(
   },
   { versionKey: false, timestamps: true }
 );
-
-//! contactSchema.post(["save", "findOneAndUpdate"], handleMongooseErrors);
 
 const Contact = model("contact", contactSchema);
 

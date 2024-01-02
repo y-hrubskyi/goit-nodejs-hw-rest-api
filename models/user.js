@@ -2,8 +2,6 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const bcrypt = require("bcryptjs");
 
-//! const { handleMongooseErrors } = require("../middlewares");
-
 const Regexps = {
   EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/,
@@ -59,8 +57,6 @@ userSchema.methods.removeToken = function () {
 userSchema.methods.setSubscription = function (subscription) {
   this.subscription = subscription;
 };
-
-//! userSchema.post(["save", "findOneAndUpdate"], handleMongooseErrors);
 
 const User = model("user", userSchema);
 
