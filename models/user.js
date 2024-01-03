@@ -58,6 +58,14 @@ userSchema.methods.setSubscription = function (subscription) {
   this.subscription = subscription;
 };
 
+const isConflict = ({ name, code }) =>
+  name === "MongoServerError" && code === 11000;
+
+userSchema.post(["save", "findOneAndUpdate"], (error, doc, next) => {
+  error.status = isConflict(error) ? 409 : 400;
+  next();
+});
+
 const User = model("user", userSchema);
 
 // Joi

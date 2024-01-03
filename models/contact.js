@@ -40,6 +40,14 @@ const contactSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
+const isConflict = ({ name, code }) =>
+  name === "MongoServerError" && code === 11000;
+
+contactSchema.post(["save", "findOneAndUpdate"], (error, doc, next) => {
+  error.status = isConflict(error) ? 409 : 400;
+  next();
+});
+
 const Contact = model("contact", contactSchema);
 
 // Joi
