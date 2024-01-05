@@ -11,12 +11,14 @@ const register = async (req, res, next) => {
 
   const newUser = new User({ email });
   await newUser.setPassword(password);
+  newUser.setAvatar();
   await newUser.save();
 
   res.status(201).json({
     user: {
       email: newUser.email,
       subscription: newUser.subscription,
+      avatarURL: newUser.avatarURL,
     },
   });
 };

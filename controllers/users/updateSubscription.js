@@ -2,7 +2,7 @@ const updateSubscription = async (req, res) => {
   const { subscription } = req.body;
   const { user } = req;
 
-  user.setSubscription(subscription);
+  user.updSubscription(subscription);
   await user.save();
 
   res.json({

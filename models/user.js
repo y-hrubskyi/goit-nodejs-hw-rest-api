@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const bcrypt = require("bcryptjs");
+const gravatar = require("gravatar");
 
 const Regexps = {
   EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -32,6 +33,10 @@ const userSchema = new Schema(
       enum: subscriptions,
       default: Subscriptions.STARTER,
     },
+    avatarURL: {
+      type: String,
+      required: true,
+    },
     token: {
       type: String,
       default: null,
@@ -54,8 +59,15 @@ userSchema.methods.removeToken = function () {
   this.token = null;
 };
 
-userSchema.methods.setSubscription = function (subscription) {
+userSchema.methods.updSubscription = function (subscription) {
   this.subscription = subscription;
+};
+
+userSchema.methods.setAvatar = function () {
+  this.avatarURL = gravatar.url(this.email);
+};
+userSchema.methods.updAvatar = function (avatarURL) {
+  this.avatarURL = avatarURL;
 };
 
 const isConflict = ({ name, code }) =>
