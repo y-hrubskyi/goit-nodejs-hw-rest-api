@@ -1,5 +1,7 @@
 const { User } = require("../../models");
-const { HttpError } = require("../../helpers");
+const { HttpError, sendEmail } = require("../../helpers");
+
+const { BASE_URL } = process.env;
 
 const register = async (req, res, next) => {
   const { email, password } = req.body;
@@ -12,7 +14,15 @@ const register = async (req, res, next) => {
   const newUser = new User({ email });
   await newUser.setPassword(password);
   newUser.setAvatar();
+  newUser.setVerificationToken();
   await newUser.save();
+
+  const emailData = {
+    to: email,
+    subject: "Verify your email",
+    html: `<a href="${BASE_URL}/api/users/verify/${newUser.verificationToken}" target="_blank">Verify your email</a>`,
+  };
+  await sendEmail(emailData);
 
   res.status(201).json({
     user: {

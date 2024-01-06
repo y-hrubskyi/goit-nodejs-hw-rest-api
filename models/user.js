@@ -1,3 +1,4 @@
+const crypto = require("node:crypto");
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const bcrypt = require("bcryptjs");
@@ -37,6 +38,14 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      default: null,
+    },
     token: {
       type: String,
       default: null,
@@ -50,6 +59,14 @@ userSchema.methods.setPassword = async function (password) {
 };
 userSchema.methods.isValidPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
+};
+
+userSchema.methods.setVerificationToken = function () {
+  this.verificationToken = crypto.randomUUID();
+};
+userSchema.methods.setVerify = function () {
+  this.verify = true;
+  this.verificationToken = null;
 };
 
 userSchema.methods.setToken = function (token) {
@@ -89,6 +106,10 @@ const registerSchema = Joi.object({
     .default(Subscriptions.STARTER),
 });
 
+const verifyEmailSchema = Joi.object({
+  email: Joi.string().pattern(Regexps.EMAIL).required(),
+});
+
 const loginSchema = Joi.object({
   email: Joi.string().pattern(Regexps.EMAIL).required(),
   password: Joi.string().pattern(Regexps.PASSWORD).required(),
@@ -106,6 +127,7 @@ const updateSubscriptionSchema = Joi.object({
 
 const joiSchemas = {
   registerSchema,
+  verifyEmailSchema,
   loginSchema,
   updateTokenSchema,
   updateSubscriptionSchema,
