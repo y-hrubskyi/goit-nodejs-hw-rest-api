@@ -1,7 +1,6 @@
 const { User } = require("../../models");
 const { HttpError, sendEmail } = require("../../helpers");
-
-const { BACKEND_URL } = process.env;
+const { BACKEND_URL } = require("../../config/env");
 
 const register = async (req, res, next) => {
   const { email, password } = req.body;

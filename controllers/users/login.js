@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const { User } = require("../../models");
 const { HttpError } = require("../../helpers");
+const { JWT_SECRET_KEY } = require("../../config/env");
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -18,7 +19,6 @@ const login = async (req, res, next) => {
   const payload = {
     id: user._id,
   };
-  const { JWT_SECRET_KEY } = process.env;
   const token = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: "4h" });
 
   user.setToken(token);

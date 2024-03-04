@@ -2,17 +2,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const request = require("supertest");
-require("dotenv").config();
 
 const login = require("./login");
+const { MONGODB_URI, PORT } = require("../../config/env");
 
 const app = express();
-
 app.use(express.json());
-
 app.post("/api/users/login", login);
-
-const { MONGODB_URI } = process.env;
 
 const validCredentials = {
   email: "user3@mail.com",
@@ -25,7 +21,7 @@ describe("POST /api/users/login", () => {
       .connect(MONGODB_URI)
       .then(() => {
         console.log("Database connection successful");
-        app.listen(3000, () => {
+        app.listen(PORT, () => {
           console.log("Server running. Use our API on port: 3000");
         });
       })
