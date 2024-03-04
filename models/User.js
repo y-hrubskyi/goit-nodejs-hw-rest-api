@@ -1,21 +1,14 @@
 const crypto = require("node:crypto");
 const { Schema, model } = require("mongoose");
-const Joi = require("joi");
 const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
 
-const Regexps = {
-  EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-  PASSWORD: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}$/,
-};
-const Subscriptions = {
-  STARTER: "starter",
-  PRO: "pro",
-  BUSINESS: "business",
-};
-const subscriptions = Object.values(Subscriptions);
+const {
+  Regexps,
+  Enums,
+  Subscriptions,
+} = require("../validators/sharedConstants");
 
-// Mongoose
 const userSchema = new Schema(
   {
     email: {
@@ -31,7 +24,7 @@ const userSchema = new Schema(
     },
     subscription: {
       type: String,
-      enum: subscriptions,
+      enum: Enums.SUBSCRIPTIONS,
       default: Subscriptions.STARTER,
     },
     avatarURL: {
@@ -87,53 +80,6 @@ userSchema.methods.updAvatar = function (avatarURL) {
   this.avatarURL = avatarURL;
 };
 
-const isConflict = ({ name, code }) =>
-  name === "MongoServerError" && code === 11000;
-
-userSchema.post(["save", "findOneAndUpdate"], (error, doc, next) => {
-  error.status = isConflict(error) ? 409 : 400;
-  next();
-});
-
 const User = model("User", userSchema);
 
-// Joi
-const registerSchema = Joi.object({
-  email: Joi.string().pattern(Regexps.EMAIL).required(),
-  password: Joi.string().pattern(Regexps.PASSWORD).required(),
-  subscription: Joi.string()
-    .equal(...subscriptions)
-    .default(Subscriptions.STARTER),
-});
-
-const verifyEmailSchema = Joi.object({
-  email: Joi.string().pattern(Regexps.EMAIL).required(),
-});
-
-const loginSchema = Joi.object({
-  email: Joi.string().pattern(Regexps.EMAIL).required(),
-  password: Joi.string().pattern(Regexps.PASSWORD).required(),
-});
-
-const updateTokenSchema = Joi.object({
-  token: Joi.string().allow(null).required(),
-});
-
-const updateSubscriptionSchema = Joi.object({
-  subscription: Joi.string()
-    .equal(...subscriptions)
-    .required(),
-});
-
-const joiSchemas = {
-  registerSchema,
-  verifyEmailSchema,
-  loginSchema,
-  updateTokenSchema,
-  updateSubscriptionSchema,
-};
-
-module.exports = {
-  User,
-  joiSchemas,
-};
+module.exports = User;
