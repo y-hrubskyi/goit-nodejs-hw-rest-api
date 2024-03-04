@@ -2,7 +2,7 @@ const { Router } = require("express");
 
 const { contacts } = require("../controllers");
 const { authenticate, isValidId, validateBody } = require("../middlewares");
-const { joiSchemas } = require("../models/Contact1");
+const { joiSchemas } = require("../models/Contact");
 
 const router = Router();
 
