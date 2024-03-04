@@ -2,24 +2,24 @@ const { Router } = require("express");
 
 const { authenticate, validateBody, upload } = require("../middlewares");
 const joiSchemas = require("../validators/userValidator");
-const { users } = require("../controllers");
+const { userController } = require("../controllers");
 
 const router = Router();
 
-router.get("/current", authenticate, users.getCurrent);
+router.get("/current", authenticate, userController.getCurrent);
 
 router.patch(
   "/:id/subscription",
   authenticate,
   validateBody(joiSchemas.updateSubscription),
-  users.updateSubscription
+  userController.updateSubscription
 );
 
 router.patch(
   "/avatars",
   authenticate,
   upload.single("avatar"),
-  users.updateAvatar
+  userController.updateAvatar
 );
 
 module.exports = router;
