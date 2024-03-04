@@ -2,7 +2,7 @@ const { Router } = require("express");
 
 const { contacts } = require("../controllers");
 const { authenticate, isValidId, validateBody } = require("../middlewares");
-const { joiSchemas } = require("../models/Contact");
+const joiSchemas = require("../validators/contactValidator");
 
 const router = Router();
 
@@ -10,18 +10,13 @@ router.get("/", authenticate, contacts.getAll);
 
 router.get("/:id", authenticate, isValidId, contacts.getById);
 
-router.post(
-  "/",
-  authenticate,
-  validateBody(joiSchemas.addSchema),
-  contacts.add
-);
+router.post("/", authenticate, validateBody(joiSchemas.add), contacts.add);
 
 router.put(
   "/:id",
   authenticate,
   isValidId,
-  validateBody(joiSchemas.updateSchema),
+  validateBody(joiSchemas.update),
   contacts.updateById
 );
 
@@ -29,7 +24,7 @@ router.patch(
   "/:id/favorite",
   authenticate,
   isValidId,
-  validateBody(joiSchemas.updateFavoriteSchema),
+  validateBody(joiSchemas.updateFavorite),
   contacts.updateFavorite
 );
 
