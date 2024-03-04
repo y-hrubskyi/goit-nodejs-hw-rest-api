@@ -1,36 +1,35 @@
-const fs = require("node:fs/promises");
-const path = require("node:path");
-const Jimp = require("jimp");
+const cloudinary = require("cloudinary").v2;
 
 const { HttpError } = require("../../helpers");
 
-const avatarsDir = path.join(__dirname, "../../public/avatars");
-
 const updateAvatar = async (req, res, next) => {
-  if (!req.file) {
-    throw HttpError(400, "Bad Request");
+  const { file, user } = req;
+
+  if (!file) {
+    throw HttpError(400, "File wasn't uploaded");
   }
 
-  try {
-    const { user } = req;
-    const { path: uploadName, originalname } = req.file;
+  const fileName = `${user._id}_${file.originalname}`;
 
-    const avatar = await Jimp.read(uploadName);
-    await avatar.autocrop().cover(250, 250).writeAsync(uploadName);
+  const result = await cloudinary.uploader.upload(file.path, {
+    public_id: `${fileName}`,
+    folder: "users/avatars",
+    use_filename: true,
+    unique_filename: false,
+    overwrite: true,
+  });
 
-    const avatarName = `${user._id}_${originalname}`;
-    const newName = path.join(avatarsDir, avatarName);
-    await fs.rename(uploadName, newName);
+  await cloudinary.uploader.destroy(file.filename);
 
-    const avataURL = path.join("avatars", avatarName);
-    user.updAvatar(avataURL);
-    await user.save();
+  const avatarURL = result.secure_url;
+  user.updAvatar(avatarURL);
 
-    res.json({ avataURL });
-  } catch (error) {
-    await fs.unlink(req.file.path);
-    next(error);
-  }
+  await user.save();
+
+  res.json({
+    message: "Avatar updated successfully",
+    avatarURL,
+  });
 };
 
 module.exports = updateAvatar;

@@ -1,25 +1,27 @@
-const path = require("node:path");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 
-const uploadsDir = path.join(__dirname, "../tmp");
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadsDir);
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({
-  storage,
-  limits: {
-    fileSize: 1048576,
-  },
-  fileFilter: (req, file, cb) => {
-    cb(null, file.mimetype.includes("image"));
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    return {
+      folder: "temp",
+      allowed_formats: ["jpg", "png"],
+      public_id: file.originalname,
+      transformation: [{ width: 250, height: 250 }],
+    };
   },
 });
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb(new Error("File is not an image"), false);
+  }
+};
+
+const upload = multer({ storage, fileFilter });
 
 module.exports = upload;
