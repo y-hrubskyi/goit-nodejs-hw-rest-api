@@ -2,10 +2,10 @@ const path = require("node:path");
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-require("dotenv").config();
 
 const usersRouter = require("./routes/api/users");
 const contactsRouter = require("./routes/api/contacts");
+const { connectDB, startServer } = require("./config");
 
 const app = express();
 
@@ -28,4 +28,14 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message });
 });
 
-module.exports = app;
+const start = async () => {
+  try {
+    await connectDB();
+    startServer(app);
+  } catch (err) {
+    console.log(err.message);
+    process.exit(1);
+  }
+};
+
+start();
