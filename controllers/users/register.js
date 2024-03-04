@@ -1,7 +1,7 @@
 const { User } = require("../../models");
 const { HttpError, sendEmail } = require("../../helpers");
 
-const { BASE_URL } = process.env;
+const { BACKEND_URL } = process.env;
 
 const register = async (req, res, next) => {
   const { email, password } = req.body;
@@ -20,7 +20,7 @@ const register = async (req, res, next) => {
   const emailData = {
     to: email,
     subject: "Verify your email",
-    html: `<a href="${BASE_URL}/api/users/verify/${newUser.verificationToken}" target="_blank">Verify your email</a>`,
+    html: `<a href="${BACKEND_URL}/api/users/verify/${newUser.verificationToken}" target="_blank">Verify your email</a>`,
   };
   await sendEmail(emailData);
 
