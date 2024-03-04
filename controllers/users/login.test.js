@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.post("/api/users/login", login);
 
-const { DB_HOST } = process.env;
+const { MONGODB_URI } = process.env;
 
 const validCredentials = {
   email: "user3@mail.com",
@@ -22,7 +22,7 @@ const validCredentials = {
 describe("POST /api/users/login", () => {
   beforeAll(() => {
     mongoose
-      .connect(DB_HOST)
+      .connect(MONGODB_URI)
       .then(() => {
         console.log("Database connection successful");
         app.listen(3000, () => {
