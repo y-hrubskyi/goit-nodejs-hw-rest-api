@@ -18,8 +18,8 @@ const login = async (req, res, next) => {
   const payload = {
     id: user._id,
   };
-  const { SECRET_KEY } = process.env;
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "4h" });
+  const { JWT_SECRET_KEY } = process.env;
+  const token = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: "4h" });
 
   user.setToken(token);
   await user.save();
