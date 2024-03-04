@@ -2,7 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 
-const { connectDB, startServer } = require("./config");
+const { connectDB, startServer, job } = require("./config");
 const { urlNotFound, errorHandler } = require("./middlewares");
 const initRoutes = require("./routes");
 
@@ -22,6 +22,7 @@ const start = async () => {
   try {
     await connectDB();
     startServer(app);
+    job.start();
   } catch (err) {
     console.log(err.message);
     process.exit(1);
