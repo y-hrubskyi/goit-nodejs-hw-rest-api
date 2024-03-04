@@ -1,4 +1,4 @@
-const { controllerWrapper } = require("../../middlewares");
+const { controllerWrapper } = require("../../helpers");
 
 const register = require("./register");
 const verifyEmail = require("./verifyEmail");
