@@ -95,7 +95,7 @@ userSchema.post(["save", "findOneAndUpdate"], (error, doc, next) => {
   next();
 });
 
-const User = model("user", userSchema);
+const User = model("User", userSchema);
 
 // Joi
 const registerSchema = Joi.object({

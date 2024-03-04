@@ -48,7 +48,7 @@ contactSchema.post(["save", "findOneAndUpdate"], (error, doc, next) => {
   next();
 });
 
-const Contact = model("contact", contactSchema);
+const Contact = model("Contact", contactSchema);
 
 // Joi
 const addSchema = Joi.object({
