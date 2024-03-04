@@ -1,9 +1,7 @@
+const { authService } = require("../../services");
+
 const logout = async (req, res, next) => {
-  const { user } = req;
-
-  user.removeToken();
-  await user.save();
-
+  await authService.logout(req.user);
   res.status(204).json();
 };
 
