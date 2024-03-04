@@ -1,8 +1,8 @@
 const { Router } = require("express");
 
-const { contacts } = require("../controllers");
 const { authenticate, isValidId, validateBody } = require("../middlewares");
 const joiSchemas = require("../validators/contactValidator");
+const { contacts } = require("../controllers");
 
 const router = Router();
 
