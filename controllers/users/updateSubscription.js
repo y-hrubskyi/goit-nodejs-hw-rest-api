@@ -1,14 +1,11 @@
+const { userService } = require("../../services");
+
 const updateSubscription = async (req, res) => {
   const { subscription } = req.body;
   const { user } = req;
 
-  user.updSubscription(subscription);
-  await user.save();
-
-  res.json({
-    email: user.email,
-    subscription: user.subscription,
-  });
+  const result = await userService.updateSubscription(user, subscription);
+  res.json(result);
 };
 
 module.exports = updateSubscription;

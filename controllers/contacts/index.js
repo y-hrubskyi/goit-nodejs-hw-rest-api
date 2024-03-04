@@ -1,4 +1,4 @@
-const { controllerWrapper } = require("../../middlewares");
+const { controllerWrapper } = require("../../helpers");
 
 const getAll = require("./getAll");
 const getById = require("./getById");
