@@ -6,6 +6,7 @@ const cors = require("cors");
 const usersRouter = require("./routes/api/users");
 const contactsRouter = require("./routes/api/contacts");
 const { connectDB, startServer } = require("./config");
+const { urlNotFound } = require("./middlewares");
 
 const app = express();
 
@@ -19,9 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/users", usersRouter);
 app.use("/api/contacts", contactsRouter);
 
-app.use((req, res) => {
-  res.status(404).json({ message: "Not found" });
-});
+app.use(urlNotFound);
 
 app.use((err, req, res, next) => {
   const { status = 500, message } = err;
