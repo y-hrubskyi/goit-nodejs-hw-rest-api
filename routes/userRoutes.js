@@ -1,8 +1,8 @@
 const { Router } = require("express");
 
-const { users } = require("../../controllers");
-const { authenticate, validateBody, upload } = require("../../middlewares");
-const { joiSchemas } = require("../../models/user");
+const { users } = require("../controllers");
+const { authenticate, validateBody, upload } = require("../middlewares");
+const { joiSchemas } = require("../models/user");
 
 const router = Router();
 
