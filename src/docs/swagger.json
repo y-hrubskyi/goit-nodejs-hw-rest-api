@@ -1,0 +1,8 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Phonebook API",
+    "description": "The Phonebook API provides a comprehensive solution for managing personal contacts within a secure environment. Users can create individual accounts, authenticate, and access their personal contact list. The API allows users to perform operations such as adding, updating, retrieving, and deleting contacts associated with their account.",
+    "version": "1.0.0"
+  }
+}
