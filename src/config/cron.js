@@ -7,7 +7,7 @@ const job = new CronJob("*/14 * * * *", () => {
   console.log("Restarting server");
 
   https
-    .get(BACKEND_URL + "/ping", (res) => {
+    .get(BACKEND_URL + "/cron/ping", (res) => {
       if (res.statusCode === 200) {
         console.log("Server restarted");
       } else {
