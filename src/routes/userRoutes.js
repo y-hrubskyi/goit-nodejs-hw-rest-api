@@ -9,14 +9,14 @@ const router = Router();
 router.get("/current", authenticate, userController.getCurrent);
 
 router.patch(
-  "/:id/subscription",
+  "/subscription",
   authenticate,
   validateBody(joiSchemas.updateSubscription),
   userController.updateSubscription
 );
 
 router.patch(
-  "/avatars",
+  "/avatar",
   authenticate,
   upload.single("avatar"),
   userController.updateAvatar
