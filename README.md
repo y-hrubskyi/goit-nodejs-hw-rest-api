@@ -4,9 +4,9 @@ Welcome to the Phonebook API repository! This API provides a powerful solution f
 
 ## Features
 
-- **User Authentication**: Register and login to create a secure account.
-- **Personal Contacts**: Manage your own contact list with CRUD operations.
-- **Swagger Documentation**: Explore the API using interactive Swagger documentation.
+- **User Authentication:** Register and login to create a secure account.
+- **Personal Contacts:** Manage your own contact list with CRUD operations.
+- **Swagger Documentation:** Explore the API using interactive Swagger documentation.
 
 ## Tech Stack
 
@@ -20,21 +20,19 @@ Welcome to the Phonebook API repository! This API provides a powerful solution f
 
 ```plaintext
 goit-nodejs-hw-rest-api/
-|-- src/
-|   |-- config/        # Configuration files
-|   |-- controllers/   # Request handlers for each route
-|   |-- docs/          # API documentation files
-|   |-- helpers/       # Helper functions and utilities
-|   |-- middlewares/   # Middleware functions for request processing
-|   |-- models/        # Data models and schemas
-|   |-- routes/        # Route definitions
-|   |-- services/      # Business logic services
-|   |-- validators/    # Request validation schemas
-|   |-- index.js       # Entry point for the application
-|-- .env.example
-|-- .gitignore
-|-- package.json
-|-- README.md
+|-- src/                # Source code
+|   |-- config/         # Configuration files
+|   |-- controllers/    # Request handlers for each route
+|   |-- docs/           # API documentation files
+|   |-- helpers/        # Helper functions and utilities
+|   |-- middlewares/    # Middleware functions for request processing
+|   |-- models/         # Data models and schemas
+|   |-- routes/         # Route definitions
+|   |-- services/       # Business logic services
+|   |-- validators/     # Request validation schemas
+|   |-- index.js        # Entry point for the application
+|-- .env.example        # Example environment variables configuration
+|-- package.json        # Project configuration and dependencies
 ```
 
 ## Getting Started

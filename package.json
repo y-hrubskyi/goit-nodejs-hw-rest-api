@@ -1,5 +1,5 @@
 {
-  "name": "phonebook-rest-api",
+  "name": "goit-nodejs-hw-rest-api",
   "version": "1.0.0",
   "private": true,
   "scripts": {
