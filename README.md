@@ -11,7 +11,7 @@ Welcome to the Phonebook API repository! This API provides a powerful solution f
 ## Tech Stack
 
 - **Node.js:** JavaScript runtime for server-side development.
-- **Express.js:** Web application framework for Node.js.
+- **Express:** Web application framework for Node.js.
 - **MongoDB:** NoSQL database for storing contact information.
 - **Mongoose:** ODM library for MongoDB and Node.js.
 - **Swagger:** API documentation tool for better understanding and testing.
