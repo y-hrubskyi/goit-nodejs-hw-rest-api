@@ -22,7 +22,7 @@ const start = async () => {
   try {
     await connectDB();
     startServer(app);
-    job.start();
+    // job.start();
   } catch (err) {
     console.log(err.message);
     process.exit(1);
